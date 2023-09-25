@@ -9,16 +9,16 @@ import buscarContrato from '../assets/buscarContrato.png'
 export const Aprobados = () => {
   const documents = useSelector((state) => state.documento.docsAprobados);
   const dispatch = useDispatch();
-
+  console.log(documents);
   useEffect(() => {
-    fetch("http://localhost:3000/aprobados")
+    fetch("http://45.230.33.14:4001/firmas/api/aprobados")
       .then((response) => response.json())
       .then((data) => dispatch(getDocsAprobados(data)))
       .catch((error) => console.log(error));
   }, []);
 
   return documents.length > 0 ? (
-    <div className="globalContainerTable">
+    <div className="globalContainerTable"> 
       <table className="tablaDocumentos">
         <thead>
           <th className="colServicio">Servicio</th>
@@ -35,20 +35,20 @@ export const Aprobados = () => {
               <td className="colServicio">{documento.numeroservicio}</td>
               <td className="colTitular">{documento.nombres} {documento.apellidos}</td>
               <td className="colTipo">
-                {documento.ID_TIPO_TRANSACCION}
+                {documento.nombre}
               </td>
               <td>
-                <a target="_blank" href={documento.URL_DOCUMENTO}>
+                <a target="_blank" href={documento.urlDocumento}>
                   <img className="iconos" src={contrato} alt="" />
                 </a>
               </td>
               <td>
-                <a target="_blank" href={documento.URL_CERTIFICADO}>
+                <a target="_blank" href={documento.urlCertificado}>
                   <img className="iconos" src={certificado} alt="" />
                 </a>
               </td>
               <td>
-                <a target="_blank" href={documento.URL_SELFIE}>
+                <a target="_blank" href={documento.urlSelfie}>
                   <img className="iconos" src={selfie} alt="" />
                 </a>
               </td>

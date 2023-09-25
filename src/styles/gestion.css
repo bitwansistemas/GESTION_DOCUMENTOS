@@ -20,7 +20,7 @@ td, th{
     width: 10%;
     border-bottom: 1px solid black;    
    vertical-align: middle;
-  
+  font-size: 70%;
 }
 tr{
     height: 20%;
@@ -103,4 +103,7 @@ thead{
 }
 .imagenBuscarContrato{
     width: 10%;
+}
+a{
+    cursor: pointer;
 }

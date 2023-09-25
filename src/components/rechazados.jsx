@@ -12,7 +12,7 @@ export const Rechazados = () => {
   const documents = useSelector((state) => state.documento.docsRechazados);
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch("http://localhost:3000/rechazados")
+    fetch("http://45.230.33.14:4001/firmas/api/rechazados")
       .then((response) => response.json())
       .then((data) => dispatch(getDocsRechazados(data)))
       .catch((error) => console.log(error));
@@ -42,23 +42,23 @@ export const Rechazados = () => {
         <tbody>
           {documents.map((documento) => (
             <tr>
-              <td className="colServicio">{documento.NUM_SERVICIO}</td>
-              <td className="colTitular">{documento.TITULAR}</td>
+              <td className="colServicio">{documento.numeroservicio}</td>
+              <td className="colTitular">{documento.nombres} {documento.apellidos}</td>
               <td className="colTipo">
-                {documento.tipo_transaccion_ID_TIPO_TRANSACCION}
+                {documento.nombre}
               </td>
               <td>
-                <a target="_blank" href={documento.URL_DOCUMENTO}>
+                <a target="_blank" href={documento.urlDocumento}>
                   <img className="iconos" src={contrato} alt="" />
                 </a>
               </td>
               <td>
-                <a target="_blank" href={documento.URL_CERTIFICADO}>
+                <a target="_blank" href={documento.urlCertificado}>
                   <img className="iconos" src={certificado} alt="" />
                 </a>
               </td>
               <td>
-                <a target="_blank" href={documento.URL_SELFIE}>
+                <a target="_blank" href={documento.urlSelfie}>
                   <img className="iconos" src={selfie} alt="" />
                 </a>
               </td>
@@ -68,7 +68,7 @@ export const Rechazados = () => {
               <td>
                 <a
                  
-                  onClick={() => mostrarComentario(documento.COMENTARIOS)}
+                  onClick={() => mostrarComentario(documento.comentarios)}
                 >
                   Leer
                 </a>

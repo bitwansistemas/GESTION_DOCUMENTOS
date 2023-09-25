@@ -13,7 +13,7 @@ export const Gestion = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("http://localhost:3000/pendientes")
+    fetch("http://45.230.33.14:4001/firmas/api/pendientes")
       .then((response) => response.json())
       .then((data) => dispatch(addDocument(data)))
       .catch((error) => console.log(error));
@@ -29,7 +29,7 @@ export const Gestion = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/actualizar/${id}`, {
+        fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export const Gestion = () => {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            fetch(`http://localhost:3000/actualizar/${id}`, {
+            fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -126,20 +126,20 @@ export const Gestion = () => {
                 <td className="colServicio">{documento.numeroservicio}</td>
                 <td className="colTitular">{documento.nombres} {documento.apellidos}</td>
                 <td className="colTipo">
-                  {documento.ID_TIPO_TRANSACCION}
+                  {documento.nombre}
                 </td>
                 <td>
-                  <a target="_blank" href={documento.URL_DOCUMENTO}>
+                  <a target="_blank" href={documento.urlDocumento}>
                     <img className="iconos" src={contrato} alt="" />
                   </a>
                 </td>
                 <td>
-                  <a target="_blank" href={documento.URL_CERTIFICADO}>
+                  <a target="_blank" href={documento.urlCertificado}>
                     <img className="iconos" src={certificado} alt="" />
                   </a>
                 </td>
                 <td>
-                  <a target="_blank" href={documento.URL_SELFIE}>
+                  <a target="_blank" href={documento.urlSelfie}>
                     <img className="iconos" src={selfie} alt="" />
                   </a>
                 </td>
@@ -147,14 +147,14 @@ export const Gestion = () => {
                   <div className="containerOpciones">
                     <button
                       className="opcionesGestionAceptar"
-                      onClick={() => aprobarDocumento(documento.ID_TRANSACCION)}
+                      onClick={() => aprobarDocumento(documento.codigoDocumento)}
                     >
                       Aprobar
                     </button>
                     <button
                       className="opcionesGestionRechazar"
                       onClick={() =>
-                        rechazarDocumento(documento.ID_TRANSACCION)
+                        rechazarDocumento(documento.codigoDocumento)
                       }
                     >
                       Rechazar
@@ -169,7 +169,7 @@ export const Gestion = () => {
     </Suspense>
   ) : (
     <div className="globalContainerTable">
-      <h1>No existen documentos pentientes para revisión</h1>
+      <h1>No existen documentos pendientes para revisión</h1>
       <img className="imagenBuscarContrato" src={buscarContrato} alt="" />
     </div>
   );
