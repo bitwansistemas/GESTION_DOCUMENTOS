@@ -1,0 +1,35 @@
+.globalContainer{
+    width: 12%;
+    max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(38, 77, 116) ;
+    /* padding-top: 2%; */
+    align-items: center;
+}
+button{
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    justify-content: left;
+    height: auto;
+    background-color: transparent;
+    font-size: 90%;
+    color: white;
+    margin-top: 5%;
+}
+.logo{
+    width: 60%;
+    margin-bottom: 30%;
+    margin-top: 20%;
+}
+.icon{
+    width: 15%;
+    margin-right: 7%;
+    filter: invert();
+}
+
+button:hover .icon{
+    filter: invert(24%) sepia(77%) saturate(421%) hue-rotate(167deg) brightness(97%) contrast(92%);
+}
