@@ -5,7 +5,7 @@ export const Redireccionar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/gestion");
+    navigate("/documentos/v1/gestion");
   }, []);
 
   return <div></div>;
