@@ -66,10 +66,10 @@ function App() {
             </div>
           }
         />
-        <Route
+        {/* <Route
           path="*"
           element={<Redireccionar/>}
-        />
+        /> */}
       </Routes>
     </div>
   );
