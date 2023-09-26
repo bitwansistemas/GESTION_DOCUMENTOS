@@ -6,3 +6,11 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+docker stop gestiondocumentos
+docker rm gestiondocumentos
+docker image rm image_gestiondocumentos
+docker build --no-cache -t image_gestiondocumentos .
+
+docker run --restart unless-stopped -d -p 4250:80 --name gestiondocumentos image_gestiondocumentos
