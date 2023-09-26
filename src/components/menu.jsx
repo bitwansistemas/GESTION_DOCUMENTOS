@@ -8,19 +8,19 @@ export const Menu = () => {
   return (
     <div className="globalContainer">
         <img className='logo' src={logo} alt="" />
-      <Link to="/documentos/v1/gestion">
+      <Link to="/gestion">
       <button>
         <img className="icon" src={gestion} alt="" />
         Gestión
       </button>
       </Link>
-      <Link to="/documentos/v1/aprobados">
+      <Link to="/aprobados">
       <button>
         <img className="icon" src={aprobados} alt="" />
         Aprobados
       </button>
       </Link>
-      <Link to="/documentos/v1/rechazados">
+      <Link to="/rechazados">
       <button>
         <img className="icon" src={rechazados} alt="" />
         Rechazados
