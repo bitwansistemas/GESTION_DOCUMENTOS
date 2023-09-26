@@ -40,7 +40,7 @@ function App() {
       <Menu />
       <Routes>
         <Route
-          exact path="/documentos/v1/gestion"
+          path="/documentos/v1/gestion" exact
           element={
             <div className="containerHeaderBody">
               <Header titulo="Gestión de documentos firmados" />
@@ -49,7 +49,7 @@ function App() {
           }
         />
         <Route
-          exact path="/documentos/v1/aprobados"
+        path="/documentos/v1/aprobados" exact
           element={
             <div className="containerHeaderBody">
               <Header titulo="Documentos aprobados" />
@@ -58,7 +58,7 @@ function App() {
           }
         />
         <Route
-          exact path="/documentos/v1/rechazados"
+          path="/documentos/v1/rechazados" exact
           element={
             <div className="containerHeaderBody">
               <Header titulo="Documentos rechazados" />
