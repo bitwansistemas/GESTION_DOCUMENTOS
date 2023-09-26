@@ -40,7 +40,7 @@ function App() {
       <Menu />
       <Routes>
         <Route
-          path="/gestion"
+          path="documentos/v1/gestion"
           element={
             <div className="containerHeaderBody">
               <Header titulo="Gestión de documentos firmados" />
@@ -49,7 +49,7 @@ function App() {
           }
         />
         <Route
-          path="/aprobados"
+          path="documentos/v1/aprobados"
           element={
             <div className="containerHeaderBody">
               <Header titulo="Documentos aprobados" />
@@ -58,7 +58,7 @@ function App() {
           }
         />
         <Route
-          path="/rechazados"
+          path="documentos/v1/rechazados"
           element={
             <div className="containerHeaderBody">
               <Header titulo="Documentos rechazados" />
