@@ -15,4 +15,6 @@ docker build --no-cache -t image_gestiondocumentos .
 
 docker run --restart unless-stopped -d -p 4250:80 --name gestiondocumentos image_gestiondocumentos
 
-docker run --restart unless-stopped -d -p 4250:80 --name gestiondocumentos image_gestiondocumentos
+
+
+docker exec -it gestiondocumentos /bin/bash 

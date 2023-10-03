@@ -13,7 +13,7 @@ export const Gestion = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("http://45.230.33.14:4001/firmas/api/pendientes")
+    fetch("http://10.0.0.14:4001/firmas/api/pendientes")
       .then((response) => response.json())
       .then((data) => dispatch(addDocument(data)))
       .catch((error) => console.log(error));
@@ -29,7 +29,7 @@ export const Gestion = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
+        fetch(`http://10.0.0.14:4001/firmas/api/actualizar/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export const Gestion = () => {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
+            fetch(`http://10.0.0.14:4001/firmas/api/actualizar/${id}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
