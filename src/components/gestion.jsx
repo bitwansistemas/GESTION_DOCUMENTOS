@@ -22,8 +22,8 @@ export const Gestion = () => {
   const aprobarDocumento = (id) => {
     Swal.fire({
       icon: "info",
-      title: "Confirmación",
-      text: "¿Esta seguro/a que quiere aprobar el documento?",
+      title: "Confirmaciï¿½n",
+      text: "ï¿½Esta seguro/a que quiere aprobar el documento?",
       showCancelButton: true,
       confirmButtonText: "Aprobar",
     }).then((result) => {
