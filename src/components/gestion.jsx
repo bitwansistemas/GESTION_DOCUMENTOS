@@ -22,8 +22,8 @@ export const Gestion = () => {
   const aprobarDocumento = (id) => {
     Swal.fire({
       icon: "info",
-      title: "Confirmaci�n",
-      text: "�Esta seguro/a que quiere aprobar el documento?",
+      title: "Confirmación",
+      text: "¿Esta seguro/a que quiere aprobar el documento?",
       showCancelButton: true,
       confirmButtonText: "Aprobar",
     }).then((result) => {
@@ -46,7 +46,7 @@ export const Gestion = () => {
               "success"
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location.reload(true);
+                window.location.href="/";
               }
             });
           });
@@ -97,7 +97,7 @@ export const Gestion = () => {
                   "success"
                 ).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.reload(true);
+                    window.location.href="/";
                   }
                 });
               });
