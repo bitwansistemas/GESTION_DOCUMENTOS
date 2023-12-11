@@ -8,12 +8,14 @@ import { useEffect } from "react";
 import { addDocument } from "../redux/documentoSlice";
 import { Suspense } from "react";
 import buscarContrato from '../assets/buscarContrato.png'
+import { useNavigate } from "react-router-dom";
 export const Gestion = () => {
   const documents = useSelector((state) => state.documento.documentos);
   const dispatch = useDispatch();
+const navigate=useNavigate();
 
   useEffect(() => {
-    fetch("http://10.0.0.14:4001/firmas/api/pendientes")
+    fetch("http://45.230.33.14:4001/firmas/api/pendientes")
       .then((response) => response.json())
       .then((data) => dispatch(addDocument(data)))
       .catch((error) => console.log(error));
@@ -29,7 +31,7 @@ export const Gestion = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        fetch(`http://10.0.0.14:4001/firmas/api/actualizar/${id}`, {
+        fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +48,7 @@ export const Gestion = () => {
               "success"
             ).then((result) => {
               if (result.isConfirmed) {
-                window.location.href="/";
+               navigate("/")
               }
             });
           });
@@ -79,7 +81,7 @@ export const Gestion = () => {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            fetch(`http://10.0.0.14:4001/firmas/api/actualizar/${id}`, {
+            fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -97,7 +99,7 @@ export const Gestion = () => {
                   "success"
                 ).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href="/";
+                    navigate("/")
                   }
                 });
               });

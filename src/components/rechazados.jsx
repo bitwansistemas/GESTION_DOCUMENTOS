@@ -12,7 +12,7 @@ export const Rechazados = () => {
   const documents = useSelector((state) => state.documento.docsRechazados);
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch("http://10.0.0.14:4001/firmas/api/rechazados")
+    fetch("http://45.230.33.14:4001/firmas/api/rechazados")
       .then((response) => response.json())
       .then((data) => dispatch(getDocsRechazados(data)))
       .catch((error) => console.log(error));

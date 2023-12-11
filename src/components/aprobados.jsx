@@ -11,7 +11,7 @@ export const Aprobados = () => {
   const dispatch = useDispatch();
   console.log(documents);
   useEffect(() => {
-    fetch("http://10.0.0.14:4001/firmas/api/aprobados")
+    fetch("http://45.230.33.14:4001/firmas/api/aprobados")
       .then((response) => response.json())
       .then((data) => dispatch(getDocsAprobados(data)))
       .catch((error) => console.log(error));
