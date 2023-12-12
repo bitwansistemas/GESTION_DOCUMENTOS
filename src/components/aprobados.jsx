@@ -6,10 +6,10 @@ import selfie from "../assets/imagen.png";
 import { useEffect } from "react";
 import { getDocsAprobados } from "../redux/documentoSlice";
 import buscarContrato from '../assets/buscarContrato.png'
+import Swal from "sweetalert2";
 export const Aprobados = () => {
   const documents = useSelector((state) => state.documento.docsAprobados);
   const dispatch = useDispatch();
-  console.log(documents);
   useEffect(() => {
     fetch("http://45.230.33.14:4001/firmas/api/aprobados")
       .then((response) => response.json())
@@ -17,8 +17,37 @@ export const Aprobados = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  const mostrarComentario = (comentario) => {
+    Swal.fire({
+      icon: 'info',
+      title: 'Comentario',
+      text: comentario?comentario:"No hay comentarios para este documento",
+      
+    })
+  };
   return documents.length > 0 ? (
     <div className="globalContainerTable"> 
+    <form className="buscar" onSubmit={e => {
+      e.preventDefault();
+      fetch(`http://45.230.33.14:4001/firmas/api/aprobados/${e.target.filtroServicio.value}`)
+      .then((response) => response.json())
+      .then((data) => dispatch(getDocsAprobados(data)))
+      .catch((error) => console.log(error));
+    }} onChange={e=>{
+      if(e.target.value === ""){
+        fetch("http://45.230.33.14:4001/firmas/api/aprobados")
+        .then((response) => response.json())
+        .then((data) => dispatch(getDocsAprobados(data)))
+        .catch((error) => console.log(error));
+      }
+    }}>
+      <input type="number" placeholder="No Servicio" name="filtroServicio"required />
+
+      <button className="btn" type="submit">
+        <i className="fas fa-search icon"></i>
+      </button>
+    </form>
+    
       <table className="tablaDocumentos">
         <thead>
           <th className="colServicio">Servicio</th>
@@ -28,6 +57,7 @@ export const Aprobados = () => {
           <th>Certificado</th>
           <th>Selfie</th>
           <th>estado</th>
+          <th>Comentarios</th>
         </thead>
         <tbody>
           {documents.map((documento) => (
@@ -55,6 +85,14 @@ export const Aprobados = () => {
               <td>
                 <p className="labelAceptado">Aprobado</p>
               </td>
+              <td>
+                <a
+                 
+                  onClick={() => mostrarComentario(documento.comentarios)}
+                >
+                  Leer
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -62,6 +100,26 @@ export const Aprobados = () => {
     </div>
   ) : (
     <div className="globalContainerTable">
+      <form className="buscar" onSubmit={e => {
+      e.preventDefault();
+      fetch(`http://45.230.33.14:4001/firmas/api/aprobados/${e.target.filtroServicio.value}`)
+      .then((response) => response.json())
+      .then((data) => dispatch(getDocsAprobados(data)))
+      .catch((error) => console.log(error));
+    }} onChange={e=>{
+      if(e.target.value === ""){
+        fetch("http://45.230.33.14:4001/firmas/api/aprobados")
+        .then((response) => response.json())
+        .then((data) => dispatch(getDocsAprobados(data)))
+        .catch((error) => console.log(error));
+      }
+    }}>
+      <input type="number" placeholder="No Servicio" name="filtroServicio"required />
+
+      <button className="btn" type="submit">
+        <i className="fas fa-search icon"></i>
+      </button>
+    </form>
       <h1>No existen documentos aprobados</h1>
       <img className="imagenBuscarContrato" src={buscarContrato} alt="" />
     </div>

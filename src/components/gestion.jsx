@@ -7,12 +7,12 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { addDocument } from "../redux/documentoSlice";
 import { Suspense } from "react";
-import buscarContrato from '../assets/buscarContrato.png'
+import buscarContrato from "../assets/buscarContrato.png";
 import { useNavigate } from "react-router-dom";
 export const Gestion = () => {
   const documents = useSelector((state) => state.documento.documentos);
   const dispatch = useDispatch();
-const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://45.230.33.14:4001/firmas/api/pendientes")
@@ -31,27 +31,40 @@ const navigate=useNavigate();
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
+        Swal.fire({
+          input: "textarea",
+          inputLabel: "Escriba brevemente un comentario",
+          inputPlaceholder: "Escribe aqui...",
+          inputAttributes: {
+            "aria-label": "Escribe aqui",
           },
-          body: JSON.stringify({
-            estado: "true",
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            Swal.fire(
-              "Documento aprobado satisfactoriamente!",
-              "",
-              "success"
-            ).then((result) => {
-              if (result.isConfirmed) {
-               navigate("/")
-              }
-            });
-          });
+          showCancelButton: true,
+          confirmButtonText: "Aceptar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                estado: "true",
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                Swal.fire(
+                  "Documento aprobado satisfactoriamente!",
+                  "",
+                  "success"
+                ).then((result) => {
+                  if (result.isConfirmed) {
+                    navigate("/");
+                  }
+                });
+              });
+          }
+        });
       }
     });
   };
@@ -68,7 +81,7 @@ const navigate=useNavigate();
       },
     }).then((result) => {
       if (result.isConfirmed) {
-         Swal.fire({
+        Swal.fire({
           input: "textarea",
           inputLabel: "Escriba brevemente el motivo de rechazo",
           inputPlaceholder: "Escribe aqui...",
@@ -77,7 +90,6 @@ const navigate=useNavigate();
           },
           showCancelButton: true,
           confirmButtonText: "Aceptar",
-          
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
@@ -88,7 +100,7 @@ const navigate=useNavigate();
               },
               body: JSON.stringify({
                 estado: "false",
-                comentarios:result.value
+                comentarios: result.value,
               }),
             })
               .then((response) => response.json())
@@ -99,7 +111,7 @@ const navigate=useNavigate();
                   "success"
                 ).then((result) => {
                   if (result.isConfirmed) {
-                    navigate("/")
+                    navigate("/");
                   }
                 });
               });
@@ -126,10 +138,10 @@ const navigate=useNavigate();
             {documents.map((documento) => (
               <tr>
                 <td className="colServicio">{documento.numeroservicio}</td>
-                <td className="colTitular">{documento.nombres} {documento.apellidos}</td>
-                <td className="colTipo">
-                  {documento.nombre}
+                <td className="colTitular">
+                  {documento.nombres} {documento.apellidos}
                 </td>
+                <td className="colTipo">{documento.nombre}</td>
                 <td>
                   <a target="_blank" href={documento.urlDocumento}>
                     <img className="iconos" src={contrato} alt="" />
@@ -149,7 +161,9 @@ const navigate=useNavigate();
                   <div className="containerOpciones">
                     <button
                       className="opcionesGestionAceptar"
-                      onClick={() => aprobarDocumento(documento.codigoDocumento)}
+                      onClick={() =>
+                        aprobarDocumento(documento.codigoDocumento)
+                      }
                     >
                       Aprobar
                     </button>

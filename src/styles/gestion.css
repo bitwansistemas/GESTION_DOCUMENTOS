@@ -107,3 +107,79 @@ thead{
 a{
     cursor: pointer;
 }
+
+.containerFiltroServicio{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 80%;
+    align-items: center;
+    margin-top: 2%;
+}
+.filtroServicio{
+    height: 90%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+
+.buscar {
+    position: relative;
+    padding: 5px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 1%;
+    align-items: center;
+  }
+  
+  .buscar input {
+    width: 0;
+    height: 25px;
+    padding: 0 20px;
+    font-size: 15px;
+    color: #222;
+    outline: none;
+    border: 1px solid silver;
+    border-radius: 30px;
+    transition: all 0.6s ease;
+  }
+  
+  .btn {
+    width: 46px;
+    height: 46px;
+    /* line-height: 50px; */
+    
+    position: absolute;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color :  rgb(38, 77, 116);
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 1%;
+  }
+  i{
+    color: white;
+    filter: none !important;
+  }
+  .btn:hover{
+    background-color : rgb(38, 77, 116);
+    color: white;
+}
+  
+  .buscar:hover input {
+    width: 160px;
+  }
+  
+  .buscar input:focus {
+    width: 160px;
+  }
+  
