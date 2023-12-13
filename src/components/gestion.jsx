@@ -4,22 +4,45 @@ import contrato from "../assets/contratos.png";
 import certificado from "../assets/certificado.png";
 import selfie from "../assets/imagen.png";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { addDocument } from "../redux/documentoSlice";
 import { Suspense } from "react";
 import buscarContrato from "../assets/buscarContrato.png";
 import { useNavigate } from "react-router-dom";
 export const Gestion = () => {
   const documents = useSelector((state) => state.documento.documentos);
+  const [idTecnico, setIdTecnico] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://45.230.33.14:4001/firmas/api/pendientes")
       .then((response) => response.json())
-      .then((data) => dispatch(addDocument(data)))
+      .then((data) =>{
+        setIdTecnico(data.idCuadrilla)
+        dispatch(addDocument(data))
+      } )
       .catch((error) => console.log(error));
   }, []);
+
+  // useEffect(() => {
+  //   fetch("http://45.230.33.14:4001/firmas/api/pendientes",{
+  //     method:"POST",
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       idCuadrilla:idTecnico
+  //     })
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) =>{
+  //       dispatch(addDocument(data))
+  //     } )
+  //     .catch((error) => console.log(error));
+  // }, [idTecnico]);
+
+  
 
   const aprobarDocumento = (id) => {
     Swal.fire({
