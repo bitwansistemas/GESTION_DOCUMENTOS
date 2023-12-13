@@ -49,6 +49,7 @@ export const Gestion = () => {
               },
               body: JSON.stringify({
                 estado: "true",
+                comentarios: result.value,
               }),
             })
               .then((response) => response.json())
