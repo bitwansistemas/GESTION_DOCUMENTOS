@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { addDocument } from "../redux/documentoSlice";
 import { Suspense } from "react";
 import buscarContrato from "../assets/buscarContrato.png";
+import ver from "../assets/ver.png";
 import { useNavigate } from "react-router-dom";
 export const Gestion = () => {
   const documents = useSelector((state) => state.documento.documentos);
@@ -19,30 +20,55 @@ export const Gestion = () => {
     fetch("http://45.230.33.14:4001/firmas/api/pendientes")
       .then((response) => response.json())
       .then((data) =>{
-        setIdTecnico(data.idCuadrilla)
         dispatch(addDocument(data))
       } )
       .catch((error) => console.log(error));
   }, []);
 
-  // useEffect(() => {
-  //   fetch("http://45.230.33.14:4001/firmas/api/pendientes",{
-  //     method:"POST",
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       idCuadrilla:idTecnico
-  //     })
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) =>{
-  //       dispatch(addDocument(data))
-  //     } )
-  //     .catch((error) => console.log(error));
-  // }, [idTecnico]);
 
-  
+
+  const verInfoTecnico = (idCuadrilla) => {
+    fetch("http://45.230.33.14:4001/firmas/api/getinfocuadrilla", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idCuadrilla: idCuadrilla,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let nombre = JSON.stringify(`${data.response[0].nombres} ${data.response[0].apellidos}`)
+        let identificacion = JSON.stringify(`${data.response[0].identificacion}`)
+        nombre = nombre.replace('"', '')
+        nombre = nombre.replace('"', '')
+        nombre=nombre.toLowerCase()
+       
+        let palabras = nombre.split(" ");
+        
+        for (var i = 0; i < palabras.length; i++) {
+         
+          palabras[i] =
+            palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
+        }
+
+   
+        var resultado = palabras.join(" ");
+
+         nombre = resultado;
+        identificacion = identificacion.replace('"', '')
+        identificacion = identificacion.replace('"', '')
+        
+        Swal.fire({
+          icon: "info",
+          title: "TÉCNICO",
+          html:`<div style="display: flex; justify-content:center"><p style="text-align:left;width:80%"><span style="font-weight:bold">Nombre:</span> ${nombre}<br><span style="font-weight:bold">Identificación:</span> ${identificacion}</p></div>`
+        });
+      })
+      .catch((error) => console.log(error));
+  };
+
 
   const aprobarDocumento = (id) => {
     Swal.fire({
@@ -150,6 +176,7 @@ export const Gestion = () => {
       <div className="globalContainerTable">
         <table className="tablaDocumentos">
           <thead>
+            <th className="colServicio">Tecnico</th>
             <th className="colServicio">Servicio</th>
             <th className="colTitular">Titular</th>
             <th className="colTipo">Tipo transacción</th>
@@ -161,6 +188,14 @@ export const Gestion = () => {
           <tbody>
             {documents.map((documento) => (
               <tr>
+                 <td className="colServicio">
+                <img
+                  className="iconos"
+                  src={ver}
+                  alt=""
+                  onClick={() => verInfoTecnico(documento.idCuadrilla)}
+                />
+              </td>
                 <td className="colServicio">{documento.numeroservicio}</td>
                 <td className="colTitular">
                   {documento.nombres} {documento.apellidos}

@@ -14,6 +14,7 @@
 .iconos{
     width: 15%;
     margin-top: 5%;
+    cursor: pointer;
 }
 
 td, th{
