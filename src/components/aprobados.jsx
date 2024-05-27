@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { getDocsAprobados } from "../redux/documentoSlice";
 import buscarContrato from "../assets/buscarContrato.png";
 import Swal from "sweetalert2";
+import editar from "../assets/editar_status.png";
 export const Aprobados = () => {
   const documents = useSelector((state) => state.documento.docsAprobados);
   const dispatch = useDispatch();
@@ -40,21 +41,18 @@ export const Aprobados = () => {
         );
         nombre = nombre.replace('"', "");
         nombre = nombre.replace('"', "");
-        nombre=nombre.toLowerCase()
-       
+        nombre = nombre.toLowerCase();
+
         let palabras = nombre.split(" ");
-        
+
         for (var i = 0; i < palabras.length; i++) {
-         
           palabras[i] =
             palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
         }
 
-   
         var resultado = palabras.join(" ");
 
-         nombre = resultado;
-        
+        nombre = resultado;
 
         identificacion = identificacion.replace('"', "");
         identificacion = identificacion.replace('"', "");
@@ -75,6 +73,62 @@ export const Aprobados = () => {
       text: comentario ? comentario : "No hay comentarios para este documento",
     });
   };
+
+  const rechazarDocumento = (id) => {
+    Swal.fire({
+      icon: "info",
+      title: "Confirmación",
+      text: "¿Esta seguro/a que quiere cambiar el esdado del documento a rechazado?",
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      customClass: {
+        confirmButton: "buttonRechazar",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          input: "textarea",
+          inputLabel: "Escriba brevemente el motivo de rechazo",
+          inputPlaceholder: "Escribe aqui...",
+          inputAttributes: {
+            "aria-label": "Escribe aqui",
+          },
+          showCancelButton: true,
+          confirmButtonText: "Aceptar",
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            fetch(`http://45.230.33.14:4001/firmas/api/actualizar/${id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                estado: "false",
+                comentarios: result.value,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                Swal.fire(
+                  "Documento rechazado satisfactoriamente!",
+                  "",
+                  "success"
+                ).then((result) => {
+                  if (result.isConfirmed) {
+                    navigate("/");
+                  }
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+      }
+    });
+  };
+
   return documents.length > 0 ? (
     <div className="globalContainerTable">
       <form
@@ -111,6 +165,7 @@ export const Aprobados = () => {
 
       <table className="tablaDocumentos">
         <thead>
+          <th className="colServicio">Editar status</th>
           <th className="colServicio">Técnico</th>
           <th className="colServicio">Servicio</th>
           <th className="colTitular">Titular</th>
@@ -124,6 +179,14 @@ export const Aprobados = () => {
         <tbody>
           {documents.map((documento) => (
             <tr>
+              <td className="colServicio">
+                <img
+                  className="iconos"
+                  src={editar}
+                  alt=""
+                  onClick={() => rechazarDocumento(documento.codigoDocumento)}
+                />
+              </td>
               <td className="colServicio">
                 <img
                   className="iconos"

@@ -112,6 +112,8 @@ export const Gestion = () => {
                     navigate("/");
                   }
                 });
+              }).catch(error=>{
+                console.log(error);
               });
           }
         });
@@ -164,6 +166,8 @@ export const Gestion = () => {
                     navigate("/");
                   }
                 });
+              }).catch(error=>{
+                console.log(error);
               });
           }
         });
